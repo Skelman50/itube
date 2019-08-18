@@ -26,12 +26,12 @@ const routes = {
     logout: LOGOUT,
     search: SEACH,
     users: USERS,
-    userDetail: USER_DETAIL,
+    userDetail: (id) => id ? `/users/${id}` :  USER_DETAIL,
     editProfile: EDIT_PROFILE,
     changePassword: CHANGE_PASSWORD,
     videos: VIDEOS,
     uploadVideo: UPLOAD_VIDEO,
-    videoDetail: VIDEO_DETAIL,
+    videoDetail: (id) => id ? `/videos/${id}` : VIDEO_DETAIL,
     editVideo: EDIT_VIDEO,
     deleteVideo: DELETE_VIDEO
 }
