@@ -13,6 +13,8 @@ const app = express()
 
 app.set('view engine', 'pug')
 
+app.use('/uploads', express.static('uploads'))
+app.use(express.static('public'))
 app.use(cookiePaser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
