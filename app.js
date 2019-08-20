@@ -14,7 +14,7 @@ const app = express()
 app.set('view engine', 'pug')
 
 app.use('/uploads', express.static('uploads'))
-app.use(express.static('public'))
+app.use('/static', express.static('static'))
 app.use(cookiePaser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
