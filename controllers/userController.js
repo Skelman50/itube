@@ -1,11 +1,12 @@
 import { routes } from '../routes'
+import passport from 'passport'
 import User from '../models/User'
 
 export const getJoin = (req, res) => {
   res.render('join', { pageTitle: 'Join' })
 }
 
-export const postJoin = async (req, res) => {
+export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password, password2 }
   } = req
@@ -19,10 +20,11 @@ export const postJoin = async (req, res) => {
         email
       })
       await User.register(user, password)
+      next()
     } catch (error) {
       console.log(error)
+      res.redirect(routes.home)
     }
-    res.redirect(routes.home)
   }
 }
 
@@ -30,11 +32,42 @@ export const getLogin = (req, res) => {
   res.render('login', { pageTitle: 'Login' })
 }
 
-export const postLogin = (req, res) => {
+export const postLogin = passport.authenticate('local', {
+  failureRedirect: routes.login,
+  successRedirect: routes.home
+})
+
+export const githubLogin = passport.authenticate('github')
+
+export const postGithubLogin = (req, res) => {
   res.redirect(routes.home)
 }
 
+export const githubLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: { id, avatar_url, name, email }
+  } = profile
+  try {
+    const user = await User.findOne({ email })
+    if (user) {
+      user.githubId = id
+      user.save()
+      return cb(null, user)
+    }
+    const newUser = await User.create({
+      email,
+      name,
+      githubId: id,
+      avatarUrl: avatar_url
+    })
+    return cb(null, newUser)
+  } catch (error) {
+    return cb(error)
+  }
+}
+
 export const logOut = (req, res) => {
+  req.logOut()
   res.redirect(routes.home)
 }
 export const users = (req, res) => {
