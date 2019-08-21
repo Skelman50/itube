@@ -10,4 +10,5 @@ userRouter.get(routes.editProfile, onlyPrivate, editProfile)
 userRouter.get(routes.changePassword, onlyPrivate, changePassword)
 userRouter.get(routes.userDetail(), userDetail)
 
+
 export { userRouter }

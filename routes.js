@@ -10,6 +10,7 @@ const USERS = '/users'
 const USER_DETAIL = '/:id'
 const EDIT_PROFILE = '/edit-profile'
 const CHANGE_PASSWORD = '/change-password'
+const ME = '/me'
 
 // videos
 const VIDEOS = '/videos'
@@ -21,6 +22,10 @@ const DELETE_VIDEO = '/:id/delete'
 //github
 const GITHUB = '/auth/github'
 const GITHUB_CB = '/auth/github/callback'
+
+//facebook
+const FACEBOOK = '/auth/facebook'
+const FACEBOOK_CB = '/auth/facebook/callback'
 
 const routes = {
   home: HOME,
@@ -38,7 +43,10 @@ const routes = {
   editVideo: id => (id ? `/videos/${id}/edit` : EDIT_VIDEO),
   deleteVideo: id => (id ? `/videos/${id}/delete` : DELETE_VIDEO),
   github: GITHUB,
-  githubCB: GITHUB_CB
+  githubCB: GITHUB_CB,
+  facebook: FACEBOOK,
+  facebookCB: FACEBOOK_CB,
+  me: ME
 }
 
 export { routes }
