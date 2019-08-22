@@ -20,16 +20,16 @@ passport.use(
   )
 )
 
-passport.use(new FacebookStraategy(
-  {
-    clientID: process.env.FB_ID,
-    clientSecret: process.env.FB_SECRET,
-    callbackURL: `http://localhost:4000${routes.facebookCB}`,
-    profileFields: ['id', 'displayName', 'photos', 'email'],
-    scope: ['public_profile', 'email']
-  },
-  facebookLoginCallback
-))
+// passport.use(new FacebookStraategy(
+//   {
+//     clientID: process.env.FB_ID,
+//     clientSecret: process.env.FB_SECRET,
+//     callbackURL: `http://localhost:4000${routes.facebookCB}`,
+//     profileFields: ['id', 'displayName', 'photos', 'email'],
+//     scope: ['public_profile', 'email']
+//   },
+//   facebookLoginCallback
+// ))
 
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
