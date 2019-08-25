@@ -6,6 +6,7 @@ import MongoStore from "connect-mongo";
 import passport from "passport";
 import session from "express-session";
 import dotenv from "dotenv";
+import flash from "express-flash";
 import { userRouter } from "./routers/userRouter";
 import { videoRouter } from "./routers/videoRouters";
 import { globalRouter } from "./routers/globalRouter";
@@ -41,6 +42,8 @@ app.use(
     })
   })
 );
+
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
