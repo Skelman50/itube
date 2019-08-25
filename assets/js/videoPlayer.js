@@ -106,7 +106,6 @@ const handleEnded = () => {
 
 const init = () => {
   videoPlayer.volume = 0.5;
-  videoPlayer.currentTime = 670;
   playBTN.addEventListener("click", handlePlayClick);
   volumeBTN.addEventListener("click", handleVolumeClick);
   fullScrnBTN.addEventListener("click", goFullScreenClick);
