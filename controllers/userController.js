@@ -1,72 +1,72 @@
-import { routes } from '../routes'
-import passport from 'passport'
-import User from '../models/User'
+import { routes } from "../routes";
+import passport from "passport";
+import User from "../models/User";
 
 export const getJoin = (req, res) => {
-  res.render('join', { pageTitle: 'Join' })
-}
+  res.render("join", { pageTitle: "Join" });
+};
 
 export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password, password2 }
-  } = req
+  } = req;
   if (password !== password2) {
-    res.status(400)
-    res.render('join', { pageTitle: 'Join' })
+    res.status(400);
+    res.render("join", { pageTitle: "Join" });
   } else {
     try {
       const user = await User({
         name,
         email
-      })
-      await User.register(user, password)
-      next()
+      });
+      await User.register(user, password);
+      next();
     } catch (error) {
-      console.log(error)
-      res.redirect(routes.home)
+      console.log(error);
+      res.redirect(routes.home);
     }
   }
-}
+};
 
 export const getLogin = (req, res) => {
-  res.render('login', { pageTitle: 'Login' })
-}
+  res.render("login", { pageTitle: "Login" });
+};
 
-export const postLogin = passport.authenticate('local', {
+export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
   successRedirect: routes.home
-})
+});
 
-export const githubLogin = passport.authenticate('github')
+export const githubLogin = passport.authenticate("github");
 
 export const postGithubLogin = (req, res) => {
-  res.redirect(routes.home)
-}
+  res.redirect(routes.home);
+};
 
-export const facebookLogin = passport.authenticate('facebook')
+export const facebookLogin = passport.authenticate("facebook");
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
     _json: { id, avatar_url: avatarUrl, name, email }
-  } = profile
+  } = profile;
   try {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email });
     if (user) {
-      user.githubId = id
-      user.save()
-      return cb(null, user)
+      user.githubId = id;
+      user.save();
+      return cb(null, user);
     }
     const newUser = await User.create({
       email,
       name,
       githubId: id,
       avatarUrl
-    })
-    return cb(null, newUser)
+    });
+    return cb(null, newUser);
   } catch (error) {
-    return cb(error)
+    return cb(error);
   }
-}
+};
 
 export const facebookLoginCallback = (
   accessToken,
@@ -74,77 +74,77 @@ export const facebookLoginCallback = (
   profile,
   cb
 ) => {
-  console.log(accessToken, refreshToken, profile, cb)
-}
+  console.log(accessToken, refreshToken, profile, cb);
+};
 
 export const postFacebookLogin = (req, res) => {
-  res.redirect(routes.home)
-}
+  res.redirect(routes.home);
+};
 
 export const getMe = (req, res) => {
-  res.render('userDetail', { pageTitle: 'User Detail', user: req.user })
-}
+  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+};
 
 export const logOut = (req, res) => {
-  req.logOut()
-  res.redirect(routes.home)
-}
+  req.logOut();
+  res.redirect(routes.home);
+};
 export const users = (req, res) => {
-  res.render('users', { pageTitle: 'Users' })
-}
+  res.render("users", { pageTitle: "Users" });
+};
 export const userDetail = async (req, res) => {
   const {
     params: { id }
-  } = req
+  } = req;
   try {
-    const user = await User.findById(id).populate('videos')
-    res.render('userDetail', { pageTitle: 'User Detail', user })
+    const user = await User.findById(id).populate("videos");
+    res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
-    res.redirect(routes.home)
+    res.redirect(routes.home);
   }
-}
+};
 export const getEditProfile = (req, res) => {
-  res.render('editProfile', { pageTitle: 'Edit Profile' })
-}
+  res.render("editProfile", { pageTitle: "Edit Profile" });
+};
 
 export const postEditProfile = async (req, res) => {
   const {
     body: { name, email },
     file,
     user: { id, avatarUrl }
-  } = req
+  } = req;
   try {
     await User.findByIdAndUpdate(id, {
       name,
       email,
       avatarUrl: file ? file.path : avatarUrl
-    })
-    res.redirect(routes.me)
+    });
+    res.redirect(routes.me);
   } catch (error) {
-    console.log(error)
-    res.redirect(routes.editProfile)
+    console.log(error);
+    res.redirect(routes.editProfile);
   }
-}
+};
 
 export const getChangePassword = (req, res) => {
-  res.render('changePassword', { pageTitle: 'Change Password' })
-}
+  res.render("changePassword", { pageTitle: "Change Password" });
+};
 
 export const postChangePassword = async (req, res) => {
   const {
     body: { oldPassword, newPassword, newPassword1 }
-  } = req
+  } = req;
   try {
     if (newPassword !== newPassword1) {
-      res.status(400)
-      res.redirect(`/users${routes.changePassword}`)
-      return
+      res.status(400);
+      res.redirect(`/users${routes.changePassword}`);
+      return;
     }
-    await req.user.changePassword(oldPassword, newPassword)
-    res.redirect(routes.me)
+    await req.user.changePassword(oldPassword, newPassword);
+    res.redirect(routes.me);
   } catch (error) {
-    console.log(error)
-    res.status(400)
-    res.redirect(`/users${routes.changePassword}`)
+    console.log(error);
+    res.status(400);
+    res.redirect(`/users${routes.changePassword}`);
   }
-}
+};

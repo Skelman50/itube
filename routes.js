@@ -1,31 +1,35 @@
 // GLOBAL
-const HOME = '/'
-const JOIN = '/join'
-const LOGIN = '/login'
-const LOGOUT = '/logout'
-const SEACH = '/search'
+const HOME = "/";
+const JOIN = "/join";
+const LOGIN = "/login";
+const LOGOUT = "/logout";
+const SEACH = "/search";
 
 // USERS
-const USERS = '/users'
-const USER_DETAIL = '/:id'
-const EDIT_PROFILE = '/edit-profile'
-const CHANGE_PASSWORD = '/change-password'
-const ME = '/me'
+const USERS = "/users";
+const USER_DETAIL = "/:id";
+const EDIT_PROFILE = "/edit-profile";
+const CHANGE_PASSWORD = "/change-password";
+const ME = "/me";
 
 // videos
-const VIDEOS = '/videos'
-const UPLOAD_VIDEO = '/upload'
-const VIDEO_DETAIL = '/:id'
-const EDIT_VIDEO = '/:id/edit'
-const DELETE_VIDEO = '/:id/delete'
+const VIDEOS = "/videos";
+const UPLOAD_VIDEO = "/upload";
+const VIDEO_DETAIL = "/:id";
+const EDIT_VIDEO = "/:id/edit";
+const DELETE_VIDEO = "/:id/delete";
 
 //github
-const GITHUB = '/auth/github'
-const GITHUB_CB = '/auth/github/callback'
+const GITHUB = "/auth/github";
+const GITHUB_CB = "/auth/github/callback";
 
 //facebook
-const FACEBOOK = '/auth/facebook'
-const FACEBOOK_CB = '/auth/facebook/callback'
+const FACEBOOK = "/auth/facebook";
+const FACEBOOK_CB = "/auth/facebook/callback";
+
+//Api
+const API = "/api";
+const REGISTER_VIEW = "/:id/view";
 
 const routes = {
   home: HOME,
@@ -46,7 +50,9 @@ const routes = {
   githubCB: GITHUB_CB,
   facebook: FACEBOOK,
   facebookCB: FACEBOOK_CB,
-  me: ME
-}
+  me: ME,
+  api: API,
+  registerView: REGISTER_VIEW
+};
 
-export { routes }
+export { routes };

@@ -1,7 +1,7 @@
-import express from 'express'
-import passport from 'passport'
-import { routes } from '../routes'
-import { videoHome, videoSearch } from '../controllers/videoController'
+import express from "express";
+import passport from "passport";
+import { routes } from "../routes";
+import { videoHome, videoSearch } from "../controllers/videoController";
 import {
   logOut,
   getJoin,
@@ -13,34 +13,34 @@ import {
   getMe,
   facebookLogin,
   postFacebookLogin
-} from '../controllers/userController'
-import { onlyPublic, onlyPrivate } from '../middleware'
+} from "../controllers/userController";
+import { onlyPublic, onlyPrivate } from "../middleware";
 
-const globalRouter = express.Router()
+const globalRouter = express.Router();
 
-globalRouter.get(routes.join, onlyPublic, getJoin)
-globalRouter.post(routes.join, onlyPublic, postJoin, postLogin)
+globalRouter.get(routes.join, onlyPublic, getJoin);
+globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);
 
-globalRouter.get(routes.home, videoHome)
-globalRouter.get(routes.login, onlyPublic, getLogin)
-globalRouter.post(routes.login, onlyPublic, postLogin)
-globalRouter.get(routes.logout, onlyPrivate, logOut)
-globalRouter.get(routes.search, onlyPublic, videoSearch)
+globalRouter.get(routes.home, videoHome);
+globalRouter.get(routes.login, onlyPublic, getLogin);
+globalRouter.post(routes.login, onlyPublic, postLogin);
+globalRouter.get(routes.logout, onlyPrivate, logOut);
+globalRouter.get(routes.search, onlyPublic, videoSearch);
 
-globalRouter.get(routes.github, githubLogin)
+globalRouter.get(routes.github, githubLogin);
 globalRouter.get(
   routes.githubCB,
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  passport.authenticate("github", { failureRedirect: "/login" }),
   postGithubLogin
-)
+);
 
-globalRouter.get(routes.facebook, facebookLogin)
+globalRouter.get(routes.facebook, facebookLogin);
 globalRouter.get(
   routes.facebookCB,
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
   postFacebookLogin
-)
+);
 
-globalRouter.get(routes.me, getMe)
+globalRouter.get(routes.me, getMe);
 
-export { globalRouter }
+export { globalRouter };

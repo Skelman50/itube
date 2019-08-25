@@ -1,14 +1,17 @@
-import passport from 'passport'
-import GithubStrategy from 'passport-github'
-import FacebookStraategy from 'passport-facebook'
-import dotenv from 'dotenv'
-import User from './models/User'
-import { githubLoginCallback, facebookLoginCallback } from './controllers/userController'
-import { routes } from './routes'
+import passport from "passport";
+import GithubStrategy from "passport-github";
+import FacebookStraategy from "passport-facebook";
+import dotenv from "dotenv";
+import User from "./models/User";
+import {
+  githubLoginCallback,
+  facebookLoginCallback
+} from "./controllers/userController";
+import { routes } from "./routes";
 
-dotenv.config()
+dotenv.config();
 
-passport.use(User.createStrategy())
+passport.use(User.createStrategy());
 passport.use(
   new GithubStrategy(
     {
@@ -18,7 +21,7 @@ passport.use(
     },
     githubLoginCallback
   )
-)
+);
 
 // passport.use(new FacebookStraategy(
 //   {
@@ -31,5 +34,5 @@ passport.use(
 //   facebookLoginCallback
 // ))
 
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());

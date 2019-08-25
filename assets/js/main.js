@@ -1,7 +1,3 @@
-import '../scss/styles.scss'
-
-const ololo = async () => {
-    console.log('ololo')
-}
-
-ololo()
+import "../scss/styles.scss";
+import "./videoPlayer";
+import "./videoRecorder";

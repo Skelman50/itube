@@ -25,6 +25,9 @@
     .videoPlayer__column:first-child {
       display: flex;
       align-items: center;
+      .timer {
+        margin-left: 10px;
+      }
       #jsVolumeBtn {
         margin-right: 10px;
       }
